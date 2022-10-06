@@ -24,16 +24,18 @@ export default function NewPlant ({plants, setPlants}) {
       .then((res) => res.json())
       .then((data) => {
         const newPlants = [...plants, data];
-        setPlants(newPlants);
-        console.log(data)
+        const sortedPlants = newPlants.sort((a,b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))
+        setPlants(sortedPlants);
+        setFormData({name: "", image: "", care_level: "", size: ""})
       });
   }
     
    
 
     return  (
-        <div className="form-container">
-            <form className="form" onSubmit={handleSubmit} >
+        <div className="form-container" >
+            <form className="plant-form" onSubmit={handleSubmit} >
+            <h2>Add Your Favorite Plant</h2>
                 <input  type="text" name="name" id="name" value={formData.name}  onChange={handleFormChange} placeholder="Name..."/>
                 <select name="care_level" value={formData.care_level} onChange={handleFormChange}>
                     <option>Care Level</option>
